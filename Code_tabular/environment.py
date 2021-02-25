@@ -109,12 +109,12 @@ class taxi(object):
 				x,y = self.possible_passenger_loc[i]
 				MAP[2*x+1, 3*y+1] = 'a'
 		for line in MAP:
-			print ''.join(line)
+			print(''.join(line)) 
 		if self.taxi_status == 4:
-			print 'Empty Taxi'
+			print('Empty Taxi') 
 		else:
 			x,y = self.possible_passenger_loc[self.taxi_status]
-			print 'Taxi destination:({},{})'.format(x,y)
+			print('Taxi destination:({},{})'.format(x,y)) 
 
 	def step(self, action):
 		reward = -1
@@ -168,7 +168,7 @@ class taxi(object):
 				break
 			else:
 				_, reward = self.step(action)
-				print reward
+				print(reward) 
 
 
 

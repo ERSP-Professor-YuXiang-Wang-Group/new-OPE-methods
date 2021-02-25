@@ -107,7 +107,7 @@ class Density_Ratio_discounted(object):
 		self.num_state = num_state
 		self.Ghat = np.zeros([num_state, num_state], dtype = np.float64)
 		self.Nstate = np.zeros([num_state, 1], dtype = np.float64)
-        	self.auxi = np.zeros([num_state, 1], dtype = np.float64)
+		self.auxi = np.zeros([num_state, 1], dtype = np.float64)
 		self.gamma = gamma
         #####self.initial_b = np.zeros([num_state], dtype = np.float64)self.gamma = gamma
 
@@ -123,19 +123,19 @@ class Density_Ratio_discounted(object):
 			self.Ghat[cur, next] += self.gamma*policy_ratio 
 			###self.Ghat[cur, initial] += (1-self.gamma)/self.gamma * discounted_t
 			self.Ghat[next, next] -= 1.0 
-                    	self.auxi += (1.0-self.gamma)*1.0/self.num_state*np.ones([self.num_state, 1], dtype = np.float64)
+			self.auxi += (1.0-self.gamma)*1.0/self.num_state*np.ones([self.num_state, 1], dtype = np.float64)
             ####self.Ghat[next, next] -= discounted_t
 			self.Nstate[cur] += 1.0 #####discounted_t
 
 	def density_ratio_estimate(self, regularizer = 0.001):
 		Frequency = self.Nstate.reshape(-1)
-       		auxi = self.auxi.reshape(-1)
-		print self.auxi.shape
+		auxi = self.auxi.reshape(-1)
+		print(self.auxi.shape) 
 		tvalid = np.where(Frequency >= 1e-5)
 		G = np.zeros_like(self.Ghat)
-        	auxi = auxi*0.0
+		auxi = auxi*0.0
 		Frequency = Frequency/np.sum(Frequency)
-        	auxi[tvalid] = self.auxi[tvalid].reshape(-1)/Frequency[tvalid]
+		auxi[tvalid] = self.auxi[tvalid].reshape(-1)/Frequency[tvalid]
 		G[tvalid] = self.Ghat[tvalid]/(Frequency[:,None])[tvalid]		
 
 		n = self.num_state
